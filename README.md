@@ -6,4 +6,4 @@
 4. Run `pip install -r requirements.txt`
 5. Run `python manage.py makemigrations traildiary`
 6. Run `python manage.py migrate`   
-5. Run `python manage.py createsuperuser --username gregorhyneck --email gregor@hyneck.de`
+5. Run `python manage.py createsuperuser --username me --email me@mymail.de`

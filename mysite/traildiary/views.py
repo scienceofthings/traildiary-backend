@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 from .models import Region, Trail
-from .serializers import RegionSerializer, TrailSerializer
+from .serializers import RegionSerializer, TrailDetailSerializer, TrailListSerializer
 
 
 class RegionViewSet(viewsets.ModelViewSet):
@@ -18,5 +18,13 @@ class TrailViewSet(viewsets.ModelViewSet):
     API endpoint that allows trails to be viewed or edited.
     """
     queryset = Trail.objects.all()
-    serializer_class = TrailSerializer
+    serializer_class = TrailListSerializer
+    detail_serializer_class = TrailDetailSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            if hasattr(self, 'detail_serializer_class'):
+                return self.detail_serializer_class
+
+        return super(TrailViewSet, self).get_serializer_class()
