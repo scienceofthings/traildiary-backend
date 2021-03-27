@@ -1,0 +1,6 @@
+.idea/
+mysite/db.sqlite3
+uploads/
+migrations/
+__pycache__/
+venv/
