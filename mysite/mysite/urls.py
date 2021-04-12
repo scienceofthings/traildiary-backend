@@ -24,7 +24,7 @@ router.register(r'regions', RegionViewSet)
 router.register(r'trails', TrailViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/admin/', admin.site.urls)
 ]
