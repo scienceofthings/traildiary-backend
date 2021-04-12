@@ -26,6 +26,32 @@ SECRET_KEY = '&mde&&0a7re0tpm5^r_ycqqr(ms!m&!%hc^1(a*+!w6=8%mvqx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Set the loglevel to one of
+# DEBUG: Low level system information for debugging purposes
+# INFO: General system information
+# WARNING: Information describing a minor problem that has occurred.
+# ERROR: Information describing a major problem that has occurred.
+# CRITICAL: Information describing a critical problem that has occurred.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logfile.log')
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
+
+
 ALLOWED_HOSTS = []
 
 
