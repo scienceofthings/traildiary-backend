@@ -10,7 +10,7 @@ class RegionViewSet(viewsets.ModelViewSet):
     """
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TrailViewSet(viewsets.ModelViewSet):
@@ -20,7 +20,7 @@ class TrailViewSet(viewsets.ModelViewSet):
     queryset = Trail.objects.all()
     serializer_class = TrailListSerializer
     detail_serializer_class = TrailDetailSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
