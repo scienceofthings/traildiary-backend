@@ -48,7 +48,7 @@ class TrailDirectoryService:
         responsive_images_with_path = []
         responsive_images = self.filesystem.listdir('./')[1]
         for responsive_image in responsive_images:
-            image_with_path = path.join(path.basename(self.filesystem.base_location), 'responsiveImages', responsive_image)
+            image_with_path = path.join(path.basename(self.filesystem.base_location), responsive_image)
             responsive_images_with_path.append(image_with_path)
         responsive_images_with_path.sort()
         for chunk in self.chunk(responsive_images_with_path, 3):
