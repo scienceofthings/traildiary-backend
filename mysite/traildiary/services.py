@@ -2,6 +2,7 @@ from django.core.files.storage import FileSystemStorage
 import gpxpy
 import gpxpy.gpx
 from os import path
+from django.conf import settings
 
 
 class TrailDirectoryService:
@@ -9,7 +10,7 @@ class TrailDirectoryService:
     gpx_file_name_without_path = ''
 
     def __init__(self, directory):
-        self.filesystem = FileSystemStorage('uploads/' + directory)
+        self.filesystem = FileSystemStorage(settings.MEDIA_ROOT + directory)
 
     def chunk(self, lst, n):
         return zip(*[iter(lst)]*n)
@@ -45,7 +46,7 @@ class TrailDirectoryService:
     def get_responsive_images(self):
         responsive_images_chunked = []
         responsive_images_with_path = []
-        responsive_images = self.filesystem.listdir('./responsiveImages')[1]
+        responsive_images = self.filesystem.listdir('./')[1]
         for responsive_image in responsive_images:
             image_with_path = path.join(path.basename(self.filesystem.base_location), 'responsiveImages', responsive_image)
             responsive_images_with_path.append(image_with_path)

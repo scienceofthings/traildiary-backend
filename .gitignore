@@ -3,5 +3,8 @@ mysite/db.sqlite3
 uploads/
 migrations/
 logfile.log
+diaryFiles/
+mysite/media/
+mysite/static/
 __pycache__/
 venv/
