@@ -1,6 +1,5 @@
 .idea/
 db.sqlite3
-uploads/
 migrations/
 logfile.log
 diaryFiles/

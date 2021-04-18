@@ -155,6 +155,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+DIARY_FILES_SUBDIRECTORY = 'diaryFiles/'
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

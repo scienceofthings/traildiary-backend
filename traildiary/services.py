@@ -7,17 +7,21 @@ from django.conf import settings
 
 class TrailDirectoryService:
     filesystem = None
+    directory = ''
     gpx_file_name_without_path = ''
 
     def __init__(self, directory):
-        self.filesystem = FileSystemStorage(settings.MEDIA_ROOT + directory)
+        self.directory = directory
+        self.filesystem = FileSystemStorage(
+            path.join(settings.MEDIA_ROOT, settings.DIARY_FILES_SUBDIRECTORY, self.directory)
+        )
 
     def chunk(self, lst, n):
         return zip(*[iter(lst)]*n)
 
     def get_gpx_file_name(self):
         filename = self._get_gpx_file_name_without_path()
-        return path.join(path.basename(self.filesystem.base_location), filename)
+        return self._get_relative_path_to_document_root(filename)
 
     def _get_gpx_file_name_without_path(self):
         if self.gpx_file_name_without_path != '':
@@ -39,6 +43,9 @@ class TrailDirectoryService:
             points.append(new_point)
         return points
 
+    def _get_relative_path_to_document_root(self, filename):
+        return path.join(settings.DIARY_FILES_SUBDIRECTORY, self.directory, filename)
+
     def get_start_position(self):
         first_point = self.get_gpx_points()[0]
         return first_point
@@ -48,8 +55,7 @@ class TrailDirectoryService:
         responsive_images_with_path = []
         responsive_images = self.filesystem.listdir('./')[1]
         for responsive_image in responsive_images:
-            image_with_path = path.join(path.basename(self.filesystem.base_location), responsive_image)
-            responsive_images_with_path.append(image_with_path)
+            responsive_images_with_path.append(self._get_relative_path_to_document_root(responsive_image))
         responsive_images_with_path.sort()
         for chunk in self.chunk(responsive_images_with_path, 3):
             responsive_images_chunked.append(chunk)
