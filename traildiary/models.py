@@ -18,7 +18,7 @@ class Trail(models.Model):
     directory = models.CharField(max_length=255)
     start_position = models.JSONField(blank=True, default=list)
     images = models.JSONField(blank=True, default=list)
-    region = models.ForeignKey(Region, on_delete=models.PROTECT, blank=True)
+    region = models.ForeignKey(Region, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
