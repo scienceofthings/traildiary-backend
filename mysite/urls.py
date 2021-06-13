@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from traildiary.views import RegionViewSet, TrailViewSet
+from rest_framework_jwt.views import obtain_jwt_token
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -26,5 +27,6 @@ router.register(r'trails', TrailViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/admin/', admin.site.urls)
+    path('api/admin/', admin.site.urls),
+    path('api/api-token-auth/', obtain_jwt_token)
 ]
