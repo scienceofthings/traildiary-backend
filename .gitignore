@@ -4,6 +4,7 @@ migrations/
 logfile.log
 diaryFiles/
 media/
+mysite/.env
 static/
 __pycache__/
 venv/

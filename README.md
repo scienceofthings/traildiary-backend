@@ -12,10 +12,5 @@
 
 Additionally, to installation for development:
 
-1. Change variables in `settings.py`: 
-   - `SECRET_KEY`
-   - `DEBUG`
-   - `ALLOWED_HOSTS`
-   - `SECURE_SSL_REDIRECT`
-   - `SESSION_COOKIE_SECURE`
-   - `CSRF_COOKIE_SECURE`
+1. Create file `mysite/.env`
+2. Rename `mysite/env.sample` to `mysite/.env` and change according to your needs.
