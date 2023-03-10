@@ -1,3 +1,7 @@
+## How to use
+
+The backend can be reached via http://localhost:8000/api/admin
+
 ## Installation for development
 
 1. Install `python3` and `python3-venv`
