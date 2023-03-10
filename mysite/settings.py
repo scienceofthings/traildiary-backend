@@ -58,7 +58,7 @@ LOGGING = {
 }
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.json("ALLOWED_HOSTS")
 
 
 # Application definition
