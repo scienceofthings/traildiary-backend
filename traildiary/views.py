@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
+
+from django.conf import settings
 from .models import Region, Trail
 from .serializers import RegionSerializer, TrailDetailSerializer, TrailListSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -7,7 +9,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 class CookieTokenObtainPairView(TokenObtainPairView):
     """
-    Takes a set of user credentials and sets an access token as cookie.
+    Takes a set of user credentials, sets an access token as httpOnly cookie and the
+    expiration date as non-httponly cookie.
     """
 
     def post(self, request, *args, **kwargs):
@@ -16,12 +19,18 @@ class CookieTokenObtainPairView(TokenObtainPairView):
         """
         httponly: not accessible from JavaScript
         samesite: only accessible from the same domain
-        max_age: as long as the access token lives (approximatelx)
+        max_age: as long as the access token lives (approximately)
         """
         response.set_cookie("access_token",
                             access_token,
                             httponly=True,
                             samesite='strict')
+        response.set_cookie("user_is_authenticated",
+                            settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
+                            httponly=False,
+                            samesite='strict',
+                            max_age=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'])
+
 
         # Unset refresh token in response because its already in the cookie
         response.data.pop("refresh", None)
