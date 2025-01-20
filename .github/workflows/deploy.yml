@@ -1,0 +1,28 @@
+name: CI Deploy
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/live.key
+          chmod 600 ~/.ssh/live.key
+          cat >>~/.ssh/config <<END
+          Host live
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/live.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.REMOTE_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.REMOTE_HOST }}
+
+      - name: Run deploy script
+        run: ssh live 'source ~/Scripts/deployTraildiaryBackend.sh'
